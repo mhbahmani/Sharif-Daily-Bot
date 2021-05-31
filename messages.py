@@ -71,4 +71,4 @@ choices = {
 
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
 
-new_event_admin_message = 'رویداد جدید وارد شد'
+new_event_admin_message = '{} برنامه‌ی جدید اضافه کرد'

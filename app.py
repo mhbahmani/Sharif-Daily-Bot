@@ -35,6 +35,14 @@ class SharifDailyBot:
                 'ERROR': logging.ERROR,
                 }[log_level])
 
+
+    def send_msg_to_admin(self, context, message):
+        context.bot.send_message(
+            self.admin_id, 
+            message
+        )
+
+
     def start(self, update, context):
         context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -99,6 +107,13 @@ class SharifDailyBot:
         update.message.reply_text(
             text=messages.choices_message['Done'].format(utils.event_data_to_str(event_data)),
             reply_markup=ReplyKeyboardRemove(),
+        )
+
+        self.send_msg_to_admin(
+            context,
+            messages.new_event_admin_message.format(
+                utils.reformat_username(update.effective_user.username)
+                )
         )
 
         event_data.clear()
