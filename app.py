@@ -25,13 +25,8 @@ class SharifDailyBot:
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
-        reply_keyboard = [
-            ['Title', 'Invited'],
-            ['Month', 'Day', 'Hour'],
-            ['Location', 'Link', 'Telegram Channel'],
-            ['Done'],
-        ]
-        self.markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+
+        self.markup = ReplyKeyboardMarkup(messages.choices_keyboard, one_time_keyboard=True)
 
 
         logging.basicConfig(
