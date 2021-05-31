@@ -1,5 +1,8 @@
-from telegram.ext import Updater
+from telegram.ext import (
+    Updater, CommandHandler
+)
 
+import messages
 import logging
 
 
@@ -18,8 +21,15 @@ class SharifDailyBot:
                 'ERROR': logging.ERROR,
                 }[log_level])
 
+    def start(self, update, context):
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=messages.start_message)
+
+
     def setup_handlers(self):
-        pass
+        start_handler = CommandHandler('start', self.start)
+        self.dispatcher.add_handler(start_handler)
         
 
     def run(self):
