@@ -10,6 +10,7 @@ from telegram.ext import (
 )
 
 import messages
+import utils
 import logging
 
 
@@ -87,7 +88,7 @@ class SharifDailyBot:
         del event_data['choice']
 
         update.message.reply_text(
-            text=messages.received_info_message.format(event_data),
+            text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
             reply_markup=self.markup,
         )
 
@@ -104,7 +105,7 @@ class SharifDailyBot:
             del event_data['choice']
 
         update.message.reply_text(
-            text=messages.choices_message['Done'].format(event_data),
+            text=messages.choices_message['Done'].format(utils.event_data_to_str(event_data)),
             reply_markup=ReplyKeyboardRemove(),
         )
 

@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-def facts_to_str(event_data: Dict[str, str]) -> str:
+def event_data_to_str(event_data: Dict[str, str]) -> str:
     """
     Helper function for formatting the gathered event info.
     """
