@@ -55,18 +55,18 @@ choices_keyboard = [
     ['Done', 'Cancel'],
 ]
 
-choices = {
-    'عنوان': 'Title',
-    'مدعو': 'Invited',
-    'ماه': 'Month',
-    'روز': 'Day',
-    'ساعت': 'Hour',
-    'مکان (حضوری)': 'Location',
-    'لینک برگزاری': 'Link',
-    'کانال تلگرام': 'Telegram Channel',
-    'لینک تقویم گوگل': 'Calendar',
-    'ثبت': 'Done',
-    'انصراف': 'Cancel',
+choices_to_fa = {
+    'Title': 'عنوان',
+    'Invited': 'مدعو',
+    'Month': 'ماه',
+    'Day': 'روز',
+    'Hour': 'ساعت',
+    'Location': 'مکان (حضوری)',
+    'Link': 'لینک برگزاری',
+    'Telegram Channel': 'کانال تلگرام',
+    'Calendar': 'لینک تقویم گوگل',
+    'Done': 'ثبت',
+    'Cancel': 'انصراف',
 }
 
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
