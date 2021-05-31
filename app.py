@@ -25,9 +25,7 @@ class SharifDailyBot:
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
-
         self.markup = ReplyKeyboardMarkup(messages.choices_keyboard, one_time_keyboard=True)
-
 
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
