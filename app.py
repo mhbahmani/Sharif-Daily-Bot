@@ -6,6 +6,10 @@ import messages
 import logging
 
 
+# Stages:
+TITLE, MONTH, DAY, TIME, INVITED, LOCATION, LINK, CHANNEL, CALENDAR = range(9)
+
+
 class SharifDailyBot:
 
     def __init__(self, token, admin_id, log_level='INFO'):
@@ -35,3 +39,5 @@ class SharifDailyBot:
     def run(self):
         self.setup_handlers()
         self.updater.start_polling()
+
+        self.updater.idle()
