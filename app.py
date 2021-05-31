@@ -67,7 +67,7 @@ class SharifDailyBot:
         """
 
         text = update.message.text
-        context.event_data['choice'] = text
+        context.user_data['choice'] = text
         update.message.reply_text(
             text=messages.choices_message[text]
         )
@@ -80,7 +80,7 @@ class SharifDailyBot:
         Store info provided by user and ask for the next category.
         """
 
-        event_data = context.event_data
+        event_data = context.user_data
         text = update.message.text
         category = event_data['choice']
         event_data[category] = text
@@ -99,7 +99,7 @@ class SharifDailyBot:
         Display the gathered info and end.
         """
 
-        event_data = context.event_data
+        event_data = context.user_data
         if 'choice' in event_data:
             del event_data['choice']
 
