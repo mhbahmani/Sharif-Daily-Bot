@@ -56,14 +56,14 @@ choices_keyboard = [
 ]
 
 choices_to_fa = {
-    'Title': 'عنوان',
-    'Invited': 'مدعو',
+    'Title': 'عنوان برنامه',
+    'Invited': 'مدعو برنامه',
     'Month': 'ماه',
     'Day': 'روز',
     'Hour': 'ساعت',
     'Location': 'مکان (حضوری)',
     'Link': 'لینک برگزاری',
-    'Telegram Channel': 'کانال تلگرام',
+    'Telegram Channel': 'کانال تلگرام برگزار کننده',
     'Calendar': 'لینک تقویم گوگل',
     'Done': 'ثبت',
     'Cancel': 'انصراف',
@@ -71,4 +71,4 @@ choices_to_fa = {
 
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
 
-new_event_admin_message = '{} برنامه‌ی جدید اضافه کرد'
+new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
