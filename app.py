@@ -69,9 +69,19 @@ class SharifDailyBot:
 
         text = update.message.text
         context.user_data['choice'] = text
-        update.message.reply_text(
-            text=messages.choices_message[text]
-        )
+        
+        if text == "Month":
+            update.message.reply_text(
+                text=messages.choices_message[text],
+                reply_markup=ReplyKeyboardMarkup(
+                                messages.months,
+                                one_time_keyboard=True
+                                )
+            )
+        else:
+            update.message.reply_text(
+                text=messages.choices_message[text]
+            )
 
         return TYPING_REPLY
 
