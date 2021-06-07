@@ -131,15 +131,19 @@ class SharifDailyBot:
 
     def inline_calendar_handler(self, update: Update, context: CallbackContext):
         selected, date = tcalendar.process_calendar_selection(context.bot, update)
-        if selected:
-            context.bot.send_message(chat_id=update.callback_query.from_user.id,
-                            text="You selected %s" % (date.strftime("%d/%m/%Y")),
-                            reply_markup=ReplyKeyboardRemove())
+        if not selected:
+            pass
 
         event_data = context.user_data
         category = event_data['choice']
         event_data[category] = date.strftime('%A %d %B')
         del event_data['choice']
+
+        # delete date message
+        context.bot.delete_message(
+            update.callback_query.message.chat_id,
+            update.callback_query.message.message_id,
+        )
 
         update.callback_query.message.reply_text(
             text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
