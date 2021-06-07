@@ -5,11 +5,12 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
     CallbackContext,
+    CallbackQueryHandler,
     ConversationHandler,
     Filters,
 )
 
-import calendar
+import tcalendar
 import messages
 import utils
 import logging
@@ -74,13 +75,13 @@ class SharifDailyBot:
         if text == "Date":
             update.message.reply_text(
                 text=messages.choices_message[text],
-                reply_markup=calendar.create_calendar()
+                reply_markup=tcalendar.create_calendar()
             )
-        else:
-            update.message.reply_text(
-                text=messages.choices_message[text]
-            )
-
+            return CHOOSING
+    
+        update.message.reply_text(
+            text=messages.choices_message[text]
+        )
         return TYPING_REPLY
 
 
@@ -128,16 +129,38 @@ class SharifDailyBot:
         return ConversationHandler.END
 
 
+    def inline_handler(self, update: Update, context: CallbackContext):
+        selected, date = tcalendar.process_calendar_selection(context.bot, update)
+        if selected:
+            context.bot.send_message(chat_id=update.callback_query.from_user.id,
+                            text="You selected %s" % (date.strftime("%d/%m/%Y")),
+                            reply_markup=ReplyKeyboardRemove())
+
+        event_data = context.user_data
+        category = event_data['choice']
+        event_data[category] = date.strftime('%A %d %B')
+        del event_data['choice']
+
+        update.message.reply_text(
+            text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
+            reply_markup=self.markup,
+        )
+        return CHOOSING
+
+
     def setup_handlers(self):
         start_handler = CommandHandler('start', self.start)
         self.dispatcher.add_handler(start_handler)
+
+        calendar_handler = CallbackQueryHandler(self.inline_handler)
+        self.dispatcher.add_handler(calendar_handler)
         
         add_handler = ConversationHandler(
             entry_points=[CommandHandler('add', self.add)],
             states={
                 CHOOSING: [
                     MessageHandler(
-                        Filters.regex('^(Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited)$'), self.regular_choice
+                        Filters.regex('^(Title|Date|Hour|Location|Link|Telegram Channel|Invited)$'), self.regular_choice
                     )
                 ],
                 TYPING_CHOICE: [
@@ -154,7 +177,6 @@ class SharifDailyBot:
             },
             fallbacks=[MessageHandler(Filters.regex('^Done$'), self.done)],
         )   
-
         self.dispatcher.add_handler(add_handler)
 
 
