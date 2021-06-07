@@ -141,7 +141,7 @@ class SharifDailyBot:
         event_data[category] = date.strftime('%A %d %B')
         del event_data['choice']
 
-        update.message.reply_text(
+        update.callback_query.message.reply_text(
             text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
             reply_markup=self.markup,
         )
