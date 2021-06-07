@@ -56,8 +56,7 @@ choices_keyboard = [
 choices_to_fa = {
     'Title': 'عنوان برنامه',
     'Invited': 'مدعو برنامه',
-    'Month': 'ماه',
-    'Day': 'روز',
+    'Date': 'تاریخ برنامه',
     'Hour': 'ساعت',
     'Location': 'مکان (حضوری)',
     'Link': 'لینک برگزاری',
