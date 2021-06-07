@@ -9,6 +9,7 @@ from telegram.ext import (
     Filters,
 )
 
+import calendar
 import messages
 import utils
 import logging
@@ -70,13 +71,10 @@ class SharifDailyBot:
         text = update.message.text
         context.user_data['choice'] = text
         
-        if text == "Month":
+        if text == "Date":
             update.message.reply_text(
                 text=messages.choices_message[text],
-                reply_markup=ReplyKeyboardMarkup(
-                                messages.months,
-                                one_time_keyboard=True
-                                )
+                reply_markup=calendar.create_calendar()
             )
         else:
             update.message.reply_text(
