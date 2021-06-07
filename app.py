@@ -132,7 +132,7 @@ class SharifDailyBot:
     def inline_calendar_handler(self, update: Update, context: CallbackContext):
         selected, date = tcalendar.process_calendar_selection(context.bot, update)
         if not selected:
-            pass
+            return
 
         event_data = context.user_data
         category = event_data['choice']
