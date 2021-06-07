@@ -120,5 +120,8 @@ def monthcalendar(year=datetime.datetime.today().year, month=datetime.datetime.t
         for week in weeks:
             for i in range(7):
                 if week[i] <= today: week[i] = 0
+                else: break
+            else: continue
+            break
     
     return weeks
