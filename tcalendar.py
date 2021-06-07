@@ -113,4 +113,12 @@ def monthcalendar(year=datetime.datetime.today().year, month=datetime.datetime.t
     if days_left % 7:
         weeks.append(list(range(weeks[-1][-1] + 1, weeks[-1][-1] + 1 + (days_left % 7))) + [0] * (7 - days_left % 7))
     
+    # remove days before today
+    if datetime.date.today().month == month and \
+        datetime.date.today().year == year:     
+        today = datetime.date.today().day   
+        for week in weeks:
+            for i in range(7):
+                if week[i] <= today: week[i] = 0
+    
     return weeks
