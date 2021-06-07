@@ -69,6 +69,13 @@ choices_to_fa = {
     'Cancel': 'انصراف',
 }
 
+months = [
+    ['خرداد' ,'اردیبهشت' ,'فروردین', ],
+    ['شهریور' ,'مرداد' ,'تیر'],
+    ['آذر' ,'آبان' ,'مهر'],
+    ['اسفند' ,'بهمن', 'دی',]
+]
+
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
 
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
