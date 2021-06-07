@@ -129,7 +129,7 @@ class SharifDailyBot:
         return ConversationHandler.END
 
 
-    def inline_handler(self, update: Update, context: CallbackContext):
+    def inline_calendar_handler(self, update: Update, context: CallbackContext):
         selected, date = tcalendar.process_calendar_selection(context.bot, update)
         if selected:
             context.bot.send_message(chat_id=update.callback_query.from_user.id,
@@ -152,7 +152,7 @@ class SharifDailyBot:
         start_handler = CommandHandler('start', self.start)
         self.dispatcher.add_handler(start_handler)
 
-        calendar_handler = CallbackQueryHandler(self.inline_handler)
+        calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
         self.dispatcher.add_handler(calendar_handler)
         
         add_handler = ConversationHandler(
