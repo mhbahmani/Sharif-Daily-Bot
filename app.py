@@ -20,8 +20,9 @@ CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
 class SharifDailyBot:
 
-    def __init__(self, token, admin_id, log_level='INFO'):
-        self.admin_id = admin_id
+    def __init__(self, token, admin_ids=None, log_level='INFO'):
+        if not admin_ids: admin_ids = []
+        self.admin_ids = admin_ids
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
@@ -36,11 +37,24 @@ class SharifDailyBot:
                 }[log_level])
 
 
-    def send_msg_to_admin(self, context, message):
-        context.bot.send_message(
-            self.admin_id, 
-            message
-        )
+    def check_admin(func):
+        def wrapper(self, *args, **kwargs):
+            update, context = args[0], args[1]
+            user_id = update.message.chat.id
+            if user_id not in self.admin_ids:
+                msg = \
+                    'You don\'t have the right access'
+                update.message.reply_text(text=msg)
+                return
+            return func(self, *args, **kwargs)
+        return wrapper
+
+
+    def send_msg_to_admins(self, context, message):
+        for admin_id in self.admin_ids:
+            context.bot.send_message(
+                admin_id, message
+            )
 
 
     def start(self, update, context):
@@ -119,7 +133,7 @@ class SharifDailyBot:
             reply_markup=ReplyKeyboardRemove(),
         )
 
-        self.send_msg_to_admin(
+        self.send_msg_to_admins(
             context,
             messages.new_event_admin_message.format(
                 utils.reformat_username(update.effective_user.username)
