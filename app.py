@@ -152,9 +152,19 @@ class SharifDailyBot:
         return CHOOSING
 
 
+    def get_events(self, update, context):
+        self.send_msg_to_admin(
+            context,
+            utils.get_suggestion_message_header()
+        )
+
+
     def setup_handlers(self):
         start_handler = CommandHandler('start', self.start)
         self.dispatcher.add_handler(start_handler)
+
+        get_event_handler = CommandHandler('get', self.start)
+        self.dispatcher.add_handler(get_event_handler)
 
         calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
         self.dispatcher.add_handler(calendar_handler)
