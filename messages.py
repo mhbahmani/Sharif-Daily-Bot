@@ -80,4 +80,4 @@ days = [
 
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
 
-suggestion_message_header = '☀️ﺏﺮﻧﺎﻤﻫ<200c>ﻫﺍی پیﺶﻨﻫﺍﺩی ﻑﺭﺩﺍ، %A {} %B:'
+suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
