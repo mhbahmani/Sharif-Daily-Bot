@@ -71,6 +71,16 @@ class SharifDailyBot:
             text=messages.start_message)
 
 
+    def help(self, update, context):
+        if self.is_admin:
+            msg = messages.admin_help_message
+        else: 
+            msg = messages.help_message
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=msg)
+
+
     def add(self, update: Update, _: CallbackContext) -> int:
         """
         Add a new program
@@ -183,6 +193,9 @@ class SharifDailyBot:
     def setup_handlers(self):
         start_handler = CommandHandler('start', self.start)
         self.dispatcher.add_handler(start_handler)
+
+        help_handler = CommandHandler('help', self.help)
+        self.dispatcher.add_handler(help_handler)
 
         get_events_handler = CommandHandler('get', self.get_events)
         self.dispatcher.add_handler(get_events_handler)
