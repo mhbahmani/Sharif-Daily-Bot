@@ -10,14 +10,12 @@ add_message = """
 
 choices_message = {
     'Title': 'عنوان برنامه‌',
-    'Month': """
-تاریخ برگزاری برنامه (نام ماه را به فارسی بنویسید)
-نمونه: خرداد
-""",
+    'Month': 'تاریخ برگزاری برنامه (نام ماه را به فارسی بنویسید)',
     'Day': """
-تاریخ برگزاری برنامه (روز را به صورت یک عدد بنویسید)
+تاریخ برگزاری برنامه (روز را به صورت یک عدد فارسی بنویسید)
 نمونه: ۲۹    
     """,
+    'Date': 'تاریخ برنامه‌ی خود رو در تقویم زیر انتخاب کنید:',
     'Hour': """
 ساعت برنامه
 نمونه: ۱۷:۳۰
@@ -50,7 +48,7 @@ fa_choices_keyboard = [
 
 choices_keyboard = [
     ['Title', 'Invited'],
-    ['Month', 'Day', 'Hour'],
+    ['Date', 'Hour'],
     ['Location', 'Link', 'Telegram Channel'],
     ['Done', 'Cancel'],
 ]
@@ -58,8 +56,7 @@ choices_keyboard = [
 choices_to_fa = {
     'Title': 'عنوان برنامه',
     'Invited': 'مدعو برنامه',
-    'Month': 'ماه',
-    'Day': 'روز',
+    'Date': 'تاریخ برنامه',
     'Hour': 'ساعت',
     'Location': 'مکان (حضوری)',
     'Link': 'لینک برگزاری',
@@ -76,6 +73,11 @@ months = [
     ['اسفند' ,'بهمن', 'دی',]
 ]
 
+days = [
+    'شنبه', 'یک‌‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'
+]
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
 
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
+
+suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
