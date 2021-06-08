@@ -79,3 +79,5 @@ days = [
 # Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
 
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
+
+suggestion_message_header = '☀️ﺏﺮﻧﺎﻤﻫ<200c>ﻫﺍی پیﺶﻨﻫﺍﺩی ﻑﺭﺩﺍ، %A {} %B:'
