@@ -81,3 +81,5 @@ days = [
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
 
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
+
+you_are_not_admin_message = 'You don\'t have the right access'
