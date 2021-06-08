@@ -163,8 +163,8 @@ class SharifDailyBot:
         start_handler = CommandHandler('start', self.start)
         self.dispatcher.add_handler(start_handler)
 
-        get_event_handler = CommandHandler('get', self.start)
-        self.dispatcher.add_handler(get_event_handler)
+        get_events_handler = CommandHandler('get', self.get_events)
+        self.dispatcher.add_handler(get_events_handler)
 
         calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
         self.dispatcher.add_handler(calendar_handler)
