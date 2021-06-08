@@ -19,7 +19,7 @@ def reformat_username(username: str) -> str:
 
 
 def seprate_admins(admins: str) -> list:
-    return [int(admin_id) for admin_id in admins.split('\n')]
+    return [int(admin_id) for admin_id in admins.split('\\n')]
 
 
 def get_suggestion_message_header() -> str:
