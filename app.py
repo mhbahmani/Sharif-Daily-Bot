@@ -51,6 +51,13 @@ class SharifDailyBot:
         return wrapper
 
 
+    def is_admin(self, update):
+        user_id = update.message.chat.id
+        if user_id not in self.admin_ids:
+            return True
+        return False
+
+
     def send_msg_to_admins(self, context, message):
         for admin_id in self.admin_ids:
             context.bot.send_message(
