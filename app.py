@@ -44,8 +44,7 @@ class SharifDailyBot:
             update, context = args[0], args[1]
             user_id = update.message.chat.id
             if user_id not in self.admin_ids:
-                msg = \
-                    'You don\'t have the right access'
+                msg = messages.you_are_not_admin_message
                 update.message.reply_text(text=msg)
                 return
             return func(self, *args, **kwargs)
@@ -166,10 +165,11 @@ class SharifDailyBot:
         return CHOOSING
 
 
+    @check_admin
     def get_events(self, update, context):
-        self.send_msg_to_admin(
-            context,
-            utils.get_suggestion_message_header()
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=utils.get_suggestion_message_header()
         )
 
 
