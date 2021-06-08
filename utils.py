@@ -14,3 +14,7 @@ def event_data_to_str(event_data: Dict[str, str]) -> str:
 
 def reformat_username(username: str) -> str:
     return '@{}'.format(username.replace("_", "\\_"))
+
+
+def seprate_admins(admins: str) -> list:
+    return [int(admin_id) for admin_id in admins.split('\n')]
