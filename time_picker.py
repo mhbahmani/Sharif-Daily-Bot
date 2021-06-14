@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from datetime import datetime
-from utils import separate_callback_data, translate_numbers_to_fa
+from utils import separate_callback_data
 from messages import TIME_PICKER_CALLBACK, CALLBACK_ERROR
 
 

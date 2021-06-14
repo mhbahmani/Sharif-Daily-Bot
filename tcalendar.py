@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from messages import days, CALENDAR_CALLBACK, CALLBACK_ERROR
 
-from utils import separate_callback_data, translate_numbers_to_fa
+from utils import separate_callback_data
 import jdatetime as datetime
 
 
