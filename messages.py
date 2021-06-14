@@ -1,3 +1,6 @@
+from tcalendar import INLINE_DATA
+
+
 start_message = """
 سلام. به بات «برنامه‌های پیشنهادی فردا» روزنامه‌ی شریف خوش‌آمدید.
 اگر برنامه‌ای در دانشگاه شریف برگزار می‌شود که دوست دارید در پست برنامه‌های پیشنهادی فردا در کانال روزنامه شریف درج شود، با استفاده از این بات می‌توانید زمان و مکان برگزاری آن‌را اعلام کنید.
@@ -97,3 +100,6 @@ new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
 
 you_are_not_admin_message = 'You don\'t have the right access'
+
+TIME_PICKER_CALLBACK = 'TIME'
+CALENDAR_CALLBACK = 'CALENDAR'

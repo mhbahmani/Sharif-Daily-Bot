@@ -1,10 +1,10 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import jdatetime as datetime
-from messages import days
+from messages import days, CALENDAR_CALLBACK
 
 
 def create_callback_data(action, year, month, day):
-    return ";".join([action,str(year),str(month),str(day)])
+    return CALENDAR_CALLBACK + ";" + ";".join([action,str(year),str(month),str(day)])
 
 def separate_callback_data(data):
     return data.split(";")
@@ -72,7 +72,7 @@ def create_calendar(year=None, month=None):
 def process_calendar_selection(bot, update):
     ret_data = (False, None)
     query = update.callback_query
-    (action, year, month, day) = separate_callback_data(query.data)
+    (_, action, year, month, day) = separate_callback_data(query.data)
     curr = datetime.datetime(int(year), int(month), 1)
     if action == "IGNORE":
         bot.answer_callback_query(callback_query_id=query.id)
