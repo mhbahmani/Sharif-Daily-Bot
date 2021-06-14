@@ -6,64 +6,67 @@ from datetime import datetime
 from messages import TIME_PICKER_CALLBACK
 
 
-def create_callback_data(action, year, month, day):
-    return TIME_PICKER_CALLBACK + ";" + ";".join([ action, str(year), str(month), str(day)])
+def create_callback_data(action, hour=0, minute=0, day=0):
+    return TIME_PICKER_CALLBACK + ";" + ";".join([action, str(hour), str(minute), str(day)])
 
 
-def create_time_picker(year=None, month=None):
+def create_time_picker(hour=None, minute=None):
 
     now = datetime.now()
+    if not hour: hour = now.hour
+    if not minute: minute = now.minute
 
-    if year == None:
-        year = now.hour
-        month = now.minute
-
-    data_ignore = create_callback_data("IGNORE", year, month, 0)
     keyboard = []
-    #First row - Month and Year
+
+    # First row - Upward pointing arrows
     row=[]
     day = 1
     row.append(
         InlineKeyboardButton(
             "↑",
-            callback_data=create_callback_data("NEXT-HOUR", year, month, day)
+            callback_data=create_callback_data("NEXT-HOUR", hour, minute, day)
         )
     )
     row.append(
         InlineKeyboardButton(
             "↑",
-            callback_data=create_callback_data("NEXT-MIN", year, month, day)
+            callback_data=create_callback_data("NEXT-MIN", hour, minute, day)
         )
     )
     keyboard.append(row)
 
+    # Second row - Time
     row=[]
-    row.append(InlineKeyboardButton(year, callback_data=data_ignore))
-    row.append(InlineKeyboardButton(month, callback_data=data_ignore))
+    row.append(InlineKeyboardButton(hour, callback_data=create_callback_data("IGNORE")))
+    row.append(InlineKeyboardButton(minute, callback_data=create_callback_data("IGNORE")))
     keyboard.append(row)
 
+    # Third row - Downward pointing arrows
     row=[]
     day = 1
     row.append(
         InlineKeyboardButton(
             "↓",
-            callback_data=create_callback_data("PREV-HOUR", year, month, day)
+            callback_data=create_callback_data("PREV-HOUR", hour, minute, day)
         )
     )
     row.append(
         InlineKeyboardButton(
             "↓",
-            callback_data=create_callback_data("PREV-MIN", year, month, day)
+            callback_data=create_callback_data("PREV-MIN", hour, minute, day)
         )
     )
     keyboard.append(row)
 
-    keyboard.append(
-        [InlineKeyboardButton(
+    # Last row - Select button
+    row = []
+    row.append(
+        InlineKeyboardButton(
             "Select",
-            callback_data=create_callback_data("SELECT", year, month, day)
-        )]
+            callback_data=create_callback_data("SELECT", hour, minute, day)
+        )
     )
+    keyboard.append(row)
 
     return InlineKeyboardMarkup(keyboard)
 
