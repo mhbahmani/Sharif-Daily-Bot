@@ -87,8 +87,6 @@ def process_time_selection(bot, update):
             chat_id=query.message.chat_id,
             message_id=query.message.message_id
         )
-        hour = translate_numbers_to_fa(hour)
-        minute = translate_numbers_to_fa(minute)
         out = True, f'{hour}:{minute}'
     elif action == "NEXT-HOUR":
         bot.edit_message_text(text=query.message.text,
