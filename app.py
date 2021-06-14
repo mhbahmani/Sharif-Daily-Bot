@@ -14,6 +14,7 @@ import tcalendar
 import messages
 import utils
 import logging
+import time
 
 
 # Stages:
@@ -108,7 +109,13 @@ class SharifDailyBot:
                 reply_markup=tcalendar.create_calendar()
             )
             return CHOOSING
-    
+        elif text == "Time":
+            update.message.reply_text(
+                text=messages.choices_message[text],
+                reply_markup=time.create_time_picker()
+            )
+            return CHOOSING
+
         update.message.reply_text(
             text=messages.choices_message[text]
         )
@@ -182,6 +189,32 @@ class SharifDailyBot:
         return CHOOSING
 
 
+    def inline_time_handler(self, update: Update, context: CallbackContext):
+        selected, date = time.process_time_selection(context.bot, update)
+        if not selected:
+            return
+
+        print(context.user_data)
+        return
+
+        event_data = context.user_data
+        category = event_data['choice']
+        event_data[category] = date.strftime('%A %d %B')
+        del event_data['choice']
+
+        # delete date message
+        context.bot.delete_message(
+            update.callback_query.message.chat_id,
+            update.callback_query.message.message_id,
+        )
+
+        update.callback_query.message.reply_text(
+            text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
+            reply_markup=self.markup,
+        )
+        return CHOOSING
+
+
     @check_admin
     def get_events(self, update, context):
         context.bot.send_message(
@@ -203,6 +236,9 @@ class SharifDailyBot:
         calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
         self.dispatcher.add_handler(calendar_handler)
         
+        time_handler = CallbackQueryHandler(self.inline_time_handler)
+        self.dispatcher.add_handler(time_handler)
+
         add_handler = ConversationHandler(
             entry_points=[CommandHandler('add', self.add)],
             states={

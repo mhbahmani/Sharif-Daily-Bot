@@ -30,3 +30,11 @@ def get_suggestion_message_header() -> str:
                 datetime.now().day)
             )
         )
+
+
+def create_callback_data(action, year, month, day):
+    return ";".join([action, str(year), str(month), str(day)])
+
+
+def separate_callback_data(data):
+    return data.split(";")
