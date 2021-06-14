@@ -166,10 +166,20 @@ class SharifDailyBot:
         return ConversationHandler.END
 
 
+    def inline_keyboard_handler(self, update: Update, context: CallbackContext):
+        query = update.callback_query
+        (kind, _, _, _, _) = utils.separate_callback_data(query.data)
+        if kind == messages.TIME_PICKER_CALLBACK:
+            self.inline_time_handler(update, context)
+        elif kind == messages.CALENDAR_CALLBACK:
+            self.inline_calendar_handler(update, context)
+
+        return CHOOSING
+
+
     def inline_calendar_handler(self, update: Update, context: CallbackContext):
         selected, date = utils.inline_keyboard_handler(context.bot, update)
-        if not selected:
-            return
+        if not selected: return
 
         event_data = context.user_data
         category = event_data['choice']
@@ -186,20 +196,15 @@ class SharifDailyBot:
             text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
             reply_markup=self.markup,
         )
-        return CHOOSING
 
 
     def inline_time_handler(self, update: Update, context: CallbackContext):
         selected, date = utils.inline_keyboard_handler(context.bot, update)
-        if not selected:
-            return
-
-        print(context.user_data)
-        return
+        if not selected: return
 
         event_data = context.user_data
         category = event_data['choice']
-        event_data[category] = date.strftime('%A %d %B')
+        event_data[category] = date
         del event_data['choice']
 
         # delete date message
@@ -212,7 +217,6 @@ class SharifDailyBot:
             text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
             reply_markup=self.markup,
         )
-        return CHOOSING
 
 
     @check_admin
@@ -233,11 +237,8 @@ class SharifDailyBot:
         get_events_handler = CommandHandler('get', self.get_events)
         self.dispatcher.add_handler(get_events_handler)
 
-        time_handler = CallbackQueryHandler(self.inline_time_handler)
-        self.dispatcher.add_handler(time_handler)
-
-        calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
-        self.dispatcher.add_handler(calendar_handler)
+        inline_handler = CallbackQueryHandler(self.inline_keyboard_handler)
+        self.dispatcher.add_handler(inline_handler)
 
         add_handler = ConversationHandler(
             entry_points=[CommandHandler('add', self.add)],
