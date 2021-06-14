@@ -1,9 +1,8 @@
-import datetime
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-import utils
 from datetime import datetime
-from messages import TIME_PICKER_CALLBACK
+from utils import separate_callback_data
+from messages import TIME_PICKER_CALLBACK, CALLBACK_ERROR
 
 
 def create_callback_data(action, hour=0, minute=0, day=0):
@@ -16,6 +15,9 @@ def create_time_picker(hour=None, minute=None):
     if not hour: hour = now.hour
     if not minute: minute = now.minute
 
+    hour %= 24
+    minute %= 60 
+    
     keyboard = []
 
     # First row - Upward pointing arrows
@@ -72,11 +74,11 @@ def create_time_picker(hour=None, minute=None):
 
 
 def process_time_selection(bot, update):
-    ret_data = (False, None)
+    out = (False, None)
     query = update.callback_query
-    (_, action, year, month, day) = utils.separate_callback_data(query.data)
-    import datetime
-    curr = datetime.datetime(2021, 4, 1)
+    (_, action, hour, minute, day) = separate_callback_data(query.data)
+    hour = int(hour)
+    minute = int(minute)
     if action == "IGNORE":
         bot.answer_callback_query(callback_query_id=query.id)
     elif action == "SELECT":
@@ -85,32 +87,28 @@ def process_time_selection(bot, update):
             chat_id=query.message.chat_id,
             message_id=query.message.message_id
         )
-        ret_data = True, f'{year} {month}'
+        out = True, f'{hour} {minute}'
     elif action == "NEXT-HOUR":
-        pre = curr - datetime.timedelta(days=1)
         bot.edit_message_text(text=query.message.text,
             chat_id=query.message.chat_id,
             message_id=query.message.message_id,
-            reply_markup=create_time_picker(year + 1, month))
+            reply_markup=create_time_picker(hour + 1, minute))
     elif action == "NEXT-MIN":
-        ne = curr + datetime.timedelta(days=31)
         bot.edit_message_text(text=query.message.text,
             chat_id=query.message.chat_id,
             message_id=query.message.message_id,
-            reply_markup=create_time_picker(year, month + 1))
+            reply_markup=create_time_picker(hour, minute + 5))
     elif action == "PREV-HOUR":
-        pre = curr - datetime.timedelta(days=1)
         bot.edit_message_text(text=query.message.text,
             chat_id=query.message.chat_id,
             message_id=query.message.message_id,
-            reply_markup=create_time_picker(year - 1, month))
+            reply_markup=create_time_picker(hour - 1, minute))
     elif action == "PREV-MIN":
-        ne = curr + datetime.timedelta(days=31)
         bot.edit_message_text(text=query.message.text,
             chat_id=query.message.chat_id,
             message_id=query.message.message_id,
-            reply_markup=create_time_picker(year, month - 1))
+            reply_markup=create_time_picker(hour, minute - 5))
     else:
-        bot.answer_callback_query(callback_query_id= query.id, text="Something went wrong!")
-        # UNKNOWN
-    return ret_data
+        bot.answer_callback_query(callback_query_id= query.id, text=CALLBACK_ERROR)
+
+    return out
