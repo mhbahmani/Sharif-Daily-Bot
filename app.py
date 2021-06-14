@@ -199,12 +199,12 @@ class SharifDailyBot:
 
 
     def inline_time_handler(self, update: Update, context: CallbackContext):
-        selected, date = time_picker.process_time_selection(context.bot, update)
+        selected, time = time_picker.process_time_selection(context.bot, update)
         if not selected: return
 
         event_data = context.user_data
         category = event_data['choice']
-        event_data[category] = date
+        event_data[category] = time
         del event_data['choice']
 
         # delete date message
