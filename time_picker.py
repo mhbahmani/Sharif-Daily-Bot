@@ -53,6 +53,13 @@ def create_time_picker(year=None, month=None):
     )
     keyboard.append(row)
 
+    keyboard.append(
+        [InlineKeyboardButton(
+            "Select",
+            callback_data=utils.create_callback_data("SELECT", year, month, day)
+        )]
+    )
+
     return InlineKeyboardMarkup(keyboard)
 
 
@@ -64,13 +71,13 @@ def process_time_selection(bot, update):
     curr = datetime.datetime(int(year), int(month), 1)
     if action == "IGNORE":
         bot.answer_callback_query(callback_query_id=query.id)
-    elif action == "DAY":
+    elif action == "SELECT":
         bot.edit_message_text(
             text=query.message.text,
             chat_id=query.message.chat_id,
             message_id=query.message.message_id
         )
-        ret_data = True,datetime.datetime(int(year), int(month), int(day))
+        ret_data = True, f'{year} {month}'
     elif action == "NEXT-HOUR":
         pre = curr - datetime.timedelta(days=1)
         bot.edit_message_text(text=query.message.text,

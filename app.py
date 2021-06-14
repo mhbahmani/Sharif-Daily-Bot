@@ -112,7 +112,7 @@ class SharifDailyBot:
         elif text == "Hour":
             update.message.reply_text(
                 text=messages.choices_message[text],
-                reply_markup=time.create_time_picker()
+                reply_markup=time_picker.create_time_picker()
             )
             return CHOOSING
 
@@ -190,7 +190,7 @@ class SharifDailyBot:
 
 
     def inline_time_handler(self, update: Update, context: CallbackContext):
-        selected, date = time.process_time_selection(context.bot, update)
+        selected, date = time_picker.process_time_selection(context.bot, update)
         if not selected:
             return
 
@@ -233,11 +233,11 @@ class SharifDailyBot:
         get_events_handler = CommandHandler('get', self.get_events)
         self.dispatcher.add_handler(get_events_handler)
 
-        calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
-        self.dispatcher.add_handler(calendar_handler)
-        
         time_handler = CallbackQueryHandler(self.inline_time_handler)
         self.dispatcher.add_handler(time_handler)
+
+        calendar_handler = CallbackQueryHandler(self.inline_calendar_handler)
+        self.dispatcher.add_handler(calendar_handler)
 
         add_handler = ConversationHandler(
             entry_points=[CommandHandler('add', self.add)],
