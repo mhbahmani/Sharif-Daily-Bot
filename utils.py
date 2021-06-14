@@ -37,5 +37,11 @@ def separate_callback_data(data):
     return data.split(";")
 
 
-def translate_numbers_to_fa(numbers: str):
-    return english_to_hindi(Numbers)
+def translate_date_to_fa(date: str):
+    splitted = date.split()
+    return f'{splitted[0]} {english_to_hindi(splitted[1])} {splitted[2]}'
+
+
+def translate_time_to_fa(date: str):
+    splitted = date.split(':')
+    return f'{english_to_hindi(splitted[0])}:{english_to_hindi(splitted[1])}'
