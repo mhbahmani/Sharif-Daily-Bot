@@ -109,7 +109,7 @@ class SharifDailyBot:
                 reply_markup=tcalendar.create_calendar()
             )
             return CHOOSING
-        elif text == "Hour":
+        elif text == "Time":
             update.message.reply_text(
                 text=messages.choices_message[text],
                 reply_markup=time_picker.create_time_picker()
@@ -245,7 +245,7 @@ class SharifDailyBot:
             states={
                 CHOOSING: [
                     MessageHandler(
-                        Filters.regex('^(Title|Date|Hour|Location|Link|Telegram Channel|Invited)$'), self.regular_choice
+                        Filters.regex('^(Title|Date|Time|Location|Link|Telegram Channel|Invited)$'), self.regular_choice
                     )
                 ],
                 TYPING_CHOICE: [

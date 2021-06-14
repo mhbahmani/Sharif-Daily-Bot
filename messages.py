@@ -30,10 +30,7 @@ choices_message = {
 نمونه: ۲۹    
     """,
     'Date': 'تاریخ برنامه‌ی خود رو در تقویم زیر انتخاب کنید:',
-    'Hour': """
-ساعت برنامه
-نمونه: ۱۷:۳۰
-    """,
+    'Time': 'ساعت برنامه',
     'Invited': 'مدعو برنامه',
     'Location': 'محل برگزاری برنامه (اگر برنامه به صورت حضوری برگزار می‌شود)',
     'Link': 'لینک حضور مجازی در برنامه',
@@ -62,7 +59,7 @@ fa_choices_keyboard = [
 
 choices_keyboard = [
     ['Title', 'Invited'],
-    ['Date', 'Hour'],
+    ['Date', 'Time'],
     ['Location', 'Link', 'Telegram Channel'],
     ['Done', 'Cancel'],
 ]
@@ -71,7 +68,7 @@ choices_to_fa = {
     'Title': 'عنوان برنامه',
     'Invited': 'مدعو برنامه',
     'Date': 'تاریخ برنامه',
-    'Hour': 'ساعت',
+    'Time': 'ساعت',
     'Location': 'مکان (حضوری)',
     'Link': 'لینک برگزاری',
     'Telegram Channel': 'کانال تلگرام برگزار کننده',
@@ -92,7 +89,7 @@ CALLBACK_ERROR = 'دریافت اطلاعات با خطا مواجه شد'
 days = [
     'شنبه', 'یک‌‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'
 ]
-# Title|Month|Day|Hour|Location|Link|Telegram Channel|Invited
+# Title|Month|Day|Time|Location|Link|Telegram Channel|Invited
 
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
 
