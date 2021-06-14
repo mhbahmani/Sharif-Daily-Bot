@@ -1,4 +1,5 @@
 from typing import Dict
+from allnumbers import Numbers
 from jdatetime import set_locale, datetime
 from convert_numbers import english_to_hindi
     
@@ -34,3 +35,7 @@ def get_suggestion_message_header() -> str:
 
 def separate_callback_data(data):
     return data.split(";")
+
+
+def translate_numbers_to_fa(numbers: str):
+    return english_to_hindi(Numbers)

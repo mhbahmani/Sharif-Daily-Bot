@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from datetime import datetime
-from utils import separate_callback_data
+from utils import separate_callback_data, translate_numbers_to_fa
 from messages import TIME_PICKER_CALLBACK, CALLBACK_ERROR
 
 
@@ -87,7 +87,9 @@ def process_time_selection(bot, update):
             chat_id=query.message.chat_id,
             message_id=query.message.message_id
         )
-        out = True, f'{hour} {minute}'
+        hour = translate_numbers_to_fa(hour)
+        minute = translate_numbers_to_fa(minute)
+        out = True, f'{hour}:{minute}'
     elif action == "NEXT-HOUR":
         bot.edit_message_text(text=query.message.text,
             chat_id=query.message.chat_id,
