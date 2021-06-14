@@ -178,7 +178,7 @@ class SharifDailyBot:
 
 
     def inline_calendar_handler(self, update: Update, context: CallbackContext):
-        selected, date = utils.inline_keyboard_handler(context.bot, update)
+        selected, date = tcalendar.process_calendar_selection(context.bot, update)
         if not selected: return
 
         event_data = context.user_data
@@ -199,7 +199,7 @@ class SharifDailyBot:
 
 
     def inline_time_handler(self, update: Update, context: CallbackContext):
-        selected, date = utils.inline_keyboard_handler(context.bot, update)
+        selected, date = time_picker.process_time_selection(context.bot, update)
         if not selected: return
 
         event_data = context.user_data
