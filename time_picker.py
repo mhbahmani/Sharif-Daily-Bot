@@ -12,8 +12,8 @@ def create_callback_data(action, hour=0, minute=0, day=0):
 def create_time_picker(hour=None, minute=None):
 
     now = datetime.now()
-    if not hour: hour = now.hour
-    if not minute: minute = now.minute + 5 - (now.minute % 5 if now.minute % 5 else 5)
+    if hour == None: hour = now.hour
+    if minute == None: minute = now.minute + 5 - (now.minute % 5 if now.minute % 5 else 5)
 
     hour %= 24
     minute %= 60 
