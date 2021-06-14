@@ -14,7 +14,7 @@ import tcalendar
 import messages
 import utils
 import logging
-import time
+import time_picker
 
 
 # Stages:
@@ -109,7 +109,7 @@ class SharifDailyBot:
                 reply_markup=tcalendar.create_calendar()
             )
             return CHOOSING
-        elif text == "Time":
+        elif text == "Hour":
             update.message.reply_text(
                 text=messages.choices_message[text],
                 reply_markup=time.create_time_picker()
