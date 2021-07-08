@@ -3,7 +3,7 @@ from allnumbers import Numbers
 from jdatetime import set_locale, datetime, timedelta
 from convert_numbers import english_to_hindi
     
-from messages import choices_to_fa, suggestion_message_header
+from messages import choices_to_fa, suggestion_message_header, event_emojis, info
 
 import re
 
@@ -40,10 +40,23 @@ def seprate_admins(admins: str) -> list:
     return [int(admin_id) for admin_id in admins.split('\\n')]
 
 
+def create_events_message(events):
+    all_events = []
+    for event in events:
+        events_info = []
+        for key in info:
+            events_info.append(f'{event_emojis[key]}{event[key]}' if event.get(key) else '')
+        all_events.append('\n'.join(
+            list(filter(lambda x: x != '', events_info))
+            ))
+
+    return '\n\n'.join(all_events)
+
+
 def get_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
-    events = db.get_events(date)
+    events = create_events_message(db.get_events(date))
     return f"""
 {header}
 {events}
