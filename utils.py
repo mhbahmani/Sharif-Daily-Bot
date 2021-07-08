@@ -5,6 +5,8 @@ from convert_numbers import english_to_hindi
     
 from messages import choices_to_fa, suggestion_message_header
 
+import re
+
 
 mandatory_fields = ['Title', 'Date', 'Time']
 
@@ -53,6 +55,10 @@ def separate_callback_data(data):
 
 
 def translate_date_to_fa(date: str):
+    date = date\
+        .replace('یکشنبه', 'یک‌شنبه')\
+        .replace('سه شنبه', 'سه‌شنبه')\
+        .replace('پنجشنبه', 'پنج‌شنبه')
     splitted = date.split()
     return f'{splitted[0]} {english_to_hindi(splitted[1])} {splitted[2]}'
 
