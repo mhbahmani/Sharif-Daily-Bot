@@ -118,6 +118,13 @@ new_event_failed_admin_message = """
 {}
 """
 
+events_message = """
+{}
+
+{}
+
+@sharifdaily
+"""
 
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
 

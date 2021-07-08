@@ -3,7 +3,7 @@ from allnumbers import Numbers
 from jdatetime import set_locale, datetime, timedelta
 from convert_numbers import english_to_hindi
     
-from messages import choices_to_fa, suggestion_message_header, event_emojis, info
+from messages import choices_to_fa, suggestion_message_header, events_message, event_emojis, info
 
 import re
 
@@ -57,10 +57,7 @@ def get_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
     events = create_events_message(db.get_events(date))
-    return f"""
-{header}
-{events}
-"""
+    return events_message.format(header, events)
 
 
 def get_suggestion_message_header() -> str:
