@@ -91,6 +91,11 @@ days = [
 ]
 # Title|Month|Day|Time|Location|Link|Telegram Channel|Invited
 
+fill_mandatory_fields_message = """
+برخی از مشخصات برنامه ضروری هستند. از اطلاعات ضروری، موارد زیر را تکمیل نکرده‌اید:
+{}
+"""
+
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
 
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'

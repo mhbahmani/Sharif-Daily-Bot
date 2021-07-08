@@ -150,6 +150,15 @@ class SharifDailyBot:
         if 'choice' in event_data:
             del event_data['choice']
 
+        success, empty_fields = utils.check_mandatory_fields(event_data)
+        if not success:
+            update.message.reply_text(
+                text=messages.fill_mandatory_fields_message.format(empty_fields),
+                reply_markup=self.markup,
+            )
+            return CHOOSING
+
+
         update.message.reply_text(
             text=messages.choices_message['Done'].format(utils.event_data_to_str(event_data)),
             reply_markup=ReplyKeyboardRemove(),

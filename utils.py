@@ -6,6 +6,9 @@ from convert_numbers import english_to_hindi
 from messages import choices_to_fa, suggestion_message_header
 
 
+mandatory_fields = ['Title', 'Date', 'Hour']
+
+
 def event_data_to_str(event_data: Dict[str, str]) -> str:
     """
     Helper function for formatting the gathered event info.
@@ -13,6 +16,18 @@ def event_data_to_str(event_data: Dict[str, str]) -> str:
 
     data = [f'{choices_to_fa[key]}: {value}' for key, value in event_data.items()]
     return "\n".join(data).join(['\n', '\n'])
+
+
+def check_mandatory_fields(event_data: Dict[str, str]) -> tuple:
+    """
+    Check mandatory fields
+    Returns empty fields
+    """
+    empty_fields = []
+    for field in mandatory_fields:
+        if not event_data.get(field, None): empty_fields.append(choices_to_fa[field])
+
+    return len(empty_fields) == 0, ', '.join(empty_fields)
 
 
 def reformat_username(username: str) -> str:
