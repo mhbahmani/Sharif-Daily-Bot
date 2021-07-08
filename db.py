@@ -9,3 +9,9 @@ class DB:
 
     def add_event(self, event_data):
         self.db.events.insert_one(event_data)
+    
+    def get_events(self, date: str):
+        return self.db.events.finds_one(
+            filter={'Date': date},
+            projection={'_id': 0}
+            )

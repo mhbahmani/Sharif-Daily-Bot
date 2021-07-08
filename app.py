@@ -247,9 +247,10 @@ class SharifDailyBot:
 
     @check_admin
     def get_events(self, update, context):
+        events_message = utils.get_tomorrow_events_message(self.db)
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=utils.get_suggestion_message_header()
+            text=events_message
         )
 
 

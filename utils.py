@@ -1,6 +1,6 @@
 from typing import Dict
 from allnumbers import Numbers
-from jdatetime import set_locale, datetime
+from jdatetime import set_locale, datetime, timedelta
 from convert_numbers import english_to_hindi
     
 from messages import choices_to_fa, suggestion_message_header
@@ -40,12 +40,23 @@ def seprate_admins(admins: str) -> list:
     return [int(admin_id) for admin_id in admins.split('\\n')]
 
 
+def get_tomorrow_events_message(db):
+    header = get_suggestion_message_header()
+    date = re.sub(':', '', header.split('، ')[1])
+    events = db.get_events(date)
+    return f"""
+{header}
+{events}
+"""
+
+
 def get_suggestion_message_header() -> str:
     set_locale('fa_IR')
-    return datetime.now().strftime(
+    tomorrow = datetime.today() + timedelta(days=1)
+    return tomorrow.strftime(
         suggestion_message_header.format(
             english_to_hindi(
-                datetime.now().day)
+                tomorrow.day)
             )
         )
 
