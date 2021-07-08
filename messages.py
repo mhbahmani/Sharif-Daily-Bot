@@ -80,7 +80,7 @@ choices_to_fa = {
 event_emojis = {
     'Title': '🔸',
     'Invited': '👤',
-    'Time': '🕑 ساعت',
+    'Time': '🕑 ساعت ',
     'Location': 'مکان (حضوری)',
     'Link': '🖥',
     'Telegram Channel': '🆔',
