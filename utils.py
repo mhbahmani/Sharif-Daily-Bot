@@ -29,7 +29,7 @@ def check_mandatory_fields(event_data: Dict[str, str]) -> tuple:
     for field in mandatory_fields:
         if not event_data.get(field, None): empty_fields.append(choices_to_fa[field])
 
-    return len(empty_fields) == 0, ', '.join(empty_fields)
+    return len(empty_fields) == 0, '، '.join(empty_fields)
 
 
 def reformat_username(username: str) -> str:
