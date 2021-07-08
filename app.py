@@ -161,18 +161,32 @@ class SharifDailyBot:
             )
             return CHOOSING
 
+        try:
+            self.db.add_event(event_data.copy())
 
-        update.message.reply_text(
-            text=messages.choices_message['Done'].format(utils.event_data_to_str(event_data)),
-            reply_markup=ReplyKeyboardRemove(),
-        )
+            update.message.reply_text(
+                text=messages.choices_message['Done'].format(utils.event_data_to_str(event_data)),
+                reply_markup=ReplyKeyboardRemove(),
+            )
+            
+            self.send_msg_to_admins(
+                context,
+                messages.new_event_admin_message.format(
+                    utils.reformat_username(update.effective_user.username)
+                    )
+            )
+        except:
+            update.message.reply_text(
+                text=messages.add_event_failed_message,
+                reply_markup=ReplyKeyboardRemove(),
+            )
 
-        self.send_msg_to_admins(
-            context,
-            messages.new_event_admin_message.format(
-                utils.reformat_username(update.effective_user.username)
-                )
-        )
+            self.send_msg_to_admins(
+                context,
+                messages.new_event_admin_message.format(
+                    utils.reformat_username(update.effective_user.username),
+                    utils.event_data_to_str(event_data))
+            )
 
         event_data.clear()
         return ConversationHandler.END

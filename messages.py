@@ -96,7 +96,16 @@ fill_mandatory_fields_message = """
 {}
 """
 
+add_event_failed_message = 'اضافه کردن رویداد با خطایی مواجه شد. لطفا دوباره تلاش کنید. در صورت حل نشدن، مشکل را با ادمین در میان بگذارید.'
+
 new_event_admin_message = 'برنامه‌ی جدید اضافه کرد {}'
+
+new_event_failed_admin_message = """
+اضافه کردن برنامه‌ی جدید {} با خطا مواجه شد
+اطلاعات برنامه:
+{}
+"""
+
 
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
 
