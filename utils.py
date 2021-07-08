@@ -6,7 +6,7 @@ from convert_numbers import english_to_hindi
 from messages import choices_to_fa, suggestion_message_header
 
 
-mandatory_fields = ['Title', 'Date', 'Hour']
+mandatory_fields = ['Title', 'Date', 'Time']
 
 
 def event_data_to_str(event_data: Dict[str, str]) -> str:
