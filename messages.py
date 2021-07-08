@@ -81,7 +81,7 @@ event_emojis = {
     'Title': '🔸',
     'Invited': '👤',
     'Time': '🕑 ساعت ',
-    'Location': 'مکان (حضوری)',
+    'Location': '🏢',
     'Link': '🖥',
     'Telegram Channel': '🆔',
     'Calendar': 'لینک تقویم گوگل',
