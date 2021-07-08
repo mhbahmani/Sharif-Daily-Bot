@@ -1,4 +1,5 @@
 from typing import Text
+from db import DB
 from telegram import ReplyKeyboardMarkup, Update, ReplyKeyboardRemove
 from telegram.ext import (
     Updater,
@@ -30,6 +31,8 @@ class SharifDailyBot:
         self.dispatcher = self.updater.dispatcher
 
         self.markup = ReplyKeyboardMarkup(messages.choices_keyboard, one_time_keyboard=True)
+
+        self.db = DB()
 
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
