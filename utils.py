@@ -45,7 +45,9 @@ def create_events_message(events):
     for event in events:
         events_info = []
         for key in info:
-            events_info.append(f'{event_emojis[key]}{event[key]}' if event.get(key) else '')
+            if not event.get(key): continue
+            data = event[key].split('\n')
+            for d in data: events_info.append(f'{event_emojis[key]}{d}')
         all_events.append('\n'.join(
             list(filter(lambda x: x != '', events_info))
             ))
