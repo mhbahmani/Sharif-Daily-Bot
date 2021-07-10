@@ -246,7 +246,7 @@ class SharifDailyBot:
 
 
     @check_admin
-    def get_events(self, update, context):
+    def get_tomorrow_events(self, update, context):
         events_message = utils.get_tomorrow_events_message(self.db)
         context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -261,8 +261,8 @@ class SharifDailyBot:
         help_handler = CommandHandler('help', self.help)
         self.dispatcher.add_handler(help_handler)
 
-        get_events_handler = CommandHandler('get', self.get_events)
-        self.dispatcher.add_handler(get_events_handler)
+        get_tomorrow_events_handler = CommandHandler('get', self.get_tomorrow_events)
+        self.dispatcher.add_handler(get_tomorrow_events_handler)
 
         inline_handler = CallbackQueryHandler(self.inline_keyboard_handler)
         self.dispatcher.add_handler(inline_handler)
