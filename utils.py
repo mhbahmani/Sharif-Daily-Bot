@@ -55,15 +55,26 @@ def create_events_message(events):
     return '\n\n'.join(all_events)
 
 
-def get_tomorrow_events_message(db):
+def create_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
-    events = create_events_message(db.get_events(date))
+    events = get_events_by_date(date)
     return events_message.format(header, events)
 
 
-def get_suggestion_message_header() -> str:
+def create_events_message_by_date(db, date):
+    header = get_suggestion_message_header(date)
+    events = get_events_by_date(date)
+    return events_message.format(header, events)
+
+
+def get_events_by_date(db, date):
+    return create_events_message(db.get_events(date))
+
+
+def get_suggestion_message_header(date: None) -> str:
     set_locale('fa_IR')
+    if date: return suggestion_message_header.format(date)
     tomorrow = datetime.today() + timedelta(days=1)
     return tomorrow.strftime(
         suggestion_message_header.format(

@@ -218,10 +218,19 @@ class SharifDailyBot:
             update.callback_query.message.message_id,
         )
 
-        update.callback_query.message.reply_text(
-            text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
-            reply_markup=self.markup,
-        )
+        if category.startswith('admin'):
+            if category == 'admin_Date':
+                date = event_data['admin_Date']
+                self.send_msg_to_admins(
+                    context,
+                    utils.create_events_message_by_date(date)
+                    )
+            event_data.clear()
+        else:
+            update.callback_query.message.reply_text(
+                text=messages.received_info_message.format(utils.event_data_to_str(event_data)),
+                reply_markup=self.markup,
+            )
 
 
     def inline_time_handler(self, update: Update, context: CallbackContext):
@@ -247,10 +256,20 @@ class SharifDailyBot:
 
     @check_admin
     def get_tomorrow_events(self, update, context):
-        events_message = utils.get_tomorrow_events_message(self.db)
+        events_message = utils.create_tomorrow_events_message(self.db)
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=events_message
+        )
+
+
+    @check_admin
+    def get_events(self, update, context):
+        choice = 'admin_Date'
+        context.user_data['choice'] = choice
+        update.message.reply_text(
+            text=messages.choices_message[choice],
+            reply_markup=tcalendar.create_calendar()
         )
 
 
@@ -263,6 +282,9 @@ class SharifDailyBot:
 
         get_tomorrow_events_handler = CommandHandler('get', self.get_tomorrow_events)
         self.dispatcher.add_handler(get_tomorrow_events_handler)
+
+        get_events_handler = CommandHandler('getall', self.get_events)
+        self.dispatcher.add_handler(get_events_handler)
 
         inline_handler = CallbackQueryHandler(self.inline_keyboard_handler)
         self.dispatcher.add_handler(inline_handler)
