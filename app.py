@@ -223,7 +223,7 @@ class SharifDailyBot:
                 date = event_data['admin_Date']
                 self.send_msg_to_admins(
                     context,
-                    utils.create_events_message_by_date(date)
+                    utils.create_events_message_by_date(self.db, date)
                     )
             event_data.clear()
         else:

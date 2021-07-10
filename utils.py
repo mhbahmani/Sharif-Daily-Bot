@@ -1,9 +1,15 @@
 from typing import Dict
-from allnumbers import Numbers
 from jdatetime import set_locale, datetime, timedelta
 from convert_numbers import english_to_hindi
     
-from messages import choices_to_fa, suggestion_message_header, events_message, event_emojis, info
+from messages import (
+    future_suggestion_message_header,
+    suggestion_message_header,
+    events_message,
+    choices_to_fa,
+    event_emojis,
+    info
+)
 
 import re
 
@@ -58,23 +64,19 @@ def create_events_message(events):
 def create_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
-    events = get_events_by_date(date)
+    events = create_events_message(db.get_events(date))
     return events_message.format(header, events)
 
 
 def create_events_message_by_date(db, date):
     header = get_suggestion_message_header(date)
-    events = get_events_by_date(date)
+    events = create_events_message(db.get_events(date))
     return events_message.format(header, events)
-
-
-def get_events_by_date(db, date):
-    return create_events_message(db.get_events(date))
 
 
 def get_suggestion_message_header(date: None) -> str:
     set_locale('fa_IR')
-    if date: return suggestion_message_header.format(date)
+    if date: return future_suggestion_message_header.format(date)
     tomorrow = datetime.today() + timedelta(days=1)
     return tomorrow.strftime(
         suggestion_message_header.format(

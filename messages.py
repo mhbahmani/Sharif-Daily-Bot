@@ -124,7 +124,9 @@ events_message = """
 @sharifdaily
 """
 
-suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
+suggestion_message_header = '%A {} %B:'
+
+future_suggestion_message_header = '☀️برنامه‌های پیشنهادی {}:'
 
 you_are_not_admin_message = 'You don\'t have the right access'
 
