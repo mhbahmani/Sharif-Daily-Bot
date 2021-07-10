@@ -39,7 +39,7 @@ def check_mandatory_fields(event_data: Dict[str, str]) -> tuple:
 
 
 def reformat_username(username: str) -> str:
-    return '@{}'.format(username.replace("_", "\\_"))
+    return '@{}'.format(username)
 
 
 def seprate_admins(admins: str) -> list:
