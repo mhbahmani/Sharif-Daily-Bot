@@ -78,10 +78,12 @@ def get_suggestion_message_header(date=None) -> str:
     set_locale('fa_IR')
     if date: return future_suggestion_message_header.format(date)
     tomorrow = datetime.today() + timedelta(days=1)
-    return tomorrow.strftime(
-        suggestion_message_header.format(
-            english_to_hindi(
-                tomorrow.day)
+    return reformat_persian_date(
+        tomorrow.strftime(
+            suggestion_message_header.format(
+                english_to_hindi(
+                    tomorrow.day)
+                )
             )
         )
 
@@ -90,13 +92,17 @@ def separate_callback_data(data):
     return data.split(";")
 
 
-def translate_date_to_fa(date: str):
-    date = date\
+def translate_date_to_fa(date: str) -> str:
+    date = reformat_persian_date(date)
+    splitted = date.split()
+    return f'{splitted[0]} {english_to_hindi(splitted[1])} {splitted[2]}'
+
+
+def reformat_persian_date(date: str) -> str:
+    return date\
         .replace('یکشنبه', 'یک‌شنبه')\
         .replace('سه شنبه', 'سه‌شنبه')\
         .replace('پنجشنبه', 'پنج‌شنبه')
-    splitted = date.split()
-    return f'{splitted[0]} {english_to_hindi(splitted[1])} {splitted[2]}'
 
 
 def translate_time_to_fa(date: str):
