@@ -209,7 +209,7 @@ class SharifDailyBot:
 
         event_data = context.user_data
         category = event_data['choice']
-        event_data[category] = utils.translate_date_to_fa(date)
+        event_data[category] = date
         del event_data['choice']
 
         # delete date message

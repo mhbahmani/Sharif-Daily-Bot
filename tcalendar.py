@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from messages import days, CALENDAR_CALLBACK, CALLBACK_ERROR
 
-from utils import separate_callback_data
+from utils import separate_callback_data, translate_date_to_fa
 import jdatetime as datetime
 
 
@@ -83,7 +83,8 @@ def process_calendar_selection(bot, update):
             chat_id=query.message.chat_id,
             message_id=query.message.message_id
         )
-        out = True, datetime.datetime(int(year), int(month), int(day)).strftime('%A %d %B')
+        out = True, translate_date_to_fa(
+            datetime.datetime(int(year), int(month), int(day)).strftime('%A %d %B'))
     elif action == "PREV-MONTH":
         pre = curr - datetime.timedelta(days=1)
         bot.edit_message_text(text=query.message.text,
