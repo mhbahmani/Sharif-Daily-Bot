@@ -125,7 +125,7 @@ events_message = """
 @sharifdaily
 """
 
-suggestion_message_header = '%A {} %B:'
+suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
 
 future_suggestion_message_header = '☀️برنامه‌های پیشنهادی {}:'
 
