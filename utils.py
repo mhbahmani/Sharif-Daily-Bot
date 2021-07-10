@@ -74,7 +74,7 @@ def create_events_message_by_date(db, date):
     return events_message.format(header, events)
 
 
-def get_suggestion_message_header(date: None) -> str:
+def get_suggestion_message_header(date=None) -> str:
     set_locale('fa_IR')
     if date: return future_suggestion_message_header.format(date)
     tomorrow = datetime.today() + timedelta(days=1)
