@@ -66,7 +66,7 @@ def create_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
     events_list = db.get_events(date)
-    if not events_list: return no_event_registered_message
+    if not list(events_list): return no_event_registered_message
     events = create_events_message(events_list)
     return events_message.format(header, events)
 
@@ -74,7 +74,7 @@ def create_tomorrow_events_message(db):
 def create_events_message_by_date(db, date):
     header = get_suggestion_message_header(date)
     events_list = db.get_events(date)
-    if not events_list: return no_event_registered_message
+    if not list(events_list): return no_event_registered_message
     events = create_events_message(events_list)
     return events_message.format(header, events)
 
