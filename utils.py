@@ -4,6 +4,7 @@ from convert_numbers import english_to_hindi
     
 from messages import (
     future_suggestion_message_header,
+    no_event_registered_message,
     suggestion_message_header,
     events_message,
     choices_to_fa,
@@ -64,13 +65,17 @@ def create_events_message(events):
 def create_tomorrow_events_message(db):
     header = get_suggestion_message_header()
     date = re.sub(':', '', header.split('، ')[1])
-    events = create_events_message(db.get_events(date))
+    events_list = db.get_events(date)
+    if not events_list: return no_event_registered_message
+    events = create_events_message(events_list)
     return events_message.format(header, events)
 
 
 def create_events_message_by_date(db, date):
     header = get_suggestion_message_header(date)
-    events = create_events_message(db.get_events(date))
+    events_list = db.get_events(date)
+    if not events_list: return no_event_registered_message
+    events = create_events_message(events_list)
     return events_message.format(header, events)
 
 

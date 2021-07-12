@@ -125,6 +125,8 @@ events_message = """
 @sharifdaily
 """
 
+no_event_registered_message = 'برنامه‌ای برای تاریخ انتخاب شده ثبت نشده‌است.'
+
 suggestion_message_header = '☀️برنامه‌های پیشنهادی فردا، %A {} %B:'
 
 future_suggestion_message_header = '☀️برنامه‌های پیشنهادی {}:'
