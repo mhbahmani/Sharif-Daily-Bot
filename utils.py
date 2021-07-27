@@ -100,7 +100,7 @@ def separate_callback_data(data):
 def translate_date_to_fa(date: str) -> str:
     date = reformat_persian_date(date)
     splitted = date.split()
-    return f'{splitted[0]} {english_to_hindi(splitted[1])} {splitted[2]}'
+    return f'{splitted[0]} {english_to_hindi(int(splitted[1]))} {splitted[2]}'
 
 
 def reformat_persian_date(date: str) -> str:
