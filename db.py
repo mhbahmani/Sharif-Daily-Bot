@@ -13,4 +13,4 @@ class DB:
         return self.db.events.find(
             filter={'Date': date},
             projection={'_id': 0}
-            )
+            ).sort([('Time', 1)])
