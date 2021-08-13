@@ -112,4 +112,5 @@ def reformat_persian_date(date: str) -> str:
 
 def translate_time_to_fa(date: str):
     splitted = date.split(':')
+    if splitted[-1] == '0': splitted[-1] = '00'
     return f'{english_to_hindi(splitted[0])}:{english_to_hindi(splitted[1])}'
