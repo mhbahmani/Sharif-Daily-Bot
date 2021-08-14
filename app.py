@@ -56,9 +56,7 @@ class SharifDailyBot:
 
 
     def is_admin(self, update):
-        user_id = update.message.chat.id
-        if user_id in self.admin_ids: return True
-        return False
+        return update.message.chat.id in self.admin_ids
 
 
     def send_msg_to_admins(self, context, message):
