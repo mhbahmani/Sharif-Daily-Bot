@@ -76,7 +76,7 @@ class SharifDailyBot:
 
 
     def help(self, update, context):
-        if self.is_admin:
+        if self.is_admin(update):
             msg = messages.admin_help_message
         else: 
             msg = messages.help_message
