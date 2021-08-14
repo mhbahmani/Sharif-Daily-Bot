@@ -57,8 +57,7 @@ class SharifDailyBot:
 
     def is_admin(self, update):
         user_id = update.message.chat.id
-        if user_id not in self.admin_ids:
-            return True
+        if user_id in self.admin_ids: return True
         return False
 
 
