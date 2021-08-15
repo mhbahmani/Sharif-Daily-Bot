@@ -122,6 +122,8 @@ events_message = """
 
 {}
 
+▫️برای ثبت اطلاعات برنامه‌ها به ربات تلگرامی @sharifdailybot سری بزنید.
+
 @sharifdaily
 """
 
