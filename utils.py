@@ -56,11 +56,11 @@ def create_events_message(events):
             if not event.get(key): continue
             event_data = event[key].split('\n')
             events_info.append(
-                f'{event_emojis[key]}{splitter_character[key].join(
+                f"""{event_emojis[key]}{splitter_character[key].join(
                     list(
                         filter(lambda x: x != '', event_data)
                     )
-                )}'
+                )}"""
             )
         all_events.append('\n'.join(
             list(filter(lambda x: x != '', events_info))

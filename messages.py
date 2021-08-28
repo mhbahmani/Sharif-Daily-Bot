@@ -128,12 +128,12 @@ events_message = """
 """
 
 splitter_character = {
-    'Title': f'\n{event_emojis['Title']}',
-    'Time': f'\n{event_emojis['Time']}',
-    'Invited': '،',
-    'Link': f'\n{event_emojis['Link']}',
-    'Location': f'\n{event_emojis['Location']}',
-    'Telegram Channel': ' '
+    'Title': f"\n{event_emojis['Title']}",
+    'Time': f"\n{event_emojis['Time']}",
+    'Invited': "،",
+    'Link': f"\n{event_emojis['Link']}",
+    'Location': f"\n{event_emojis['Location']}",
+    'Telegram Channel': " "
 }
 
 no_event_registered_message = 'برنامه‌ای برای تاریخ انتخاب شده ثبت نشده‌است.'
