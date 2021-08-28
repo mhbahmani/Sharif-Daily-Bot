@@ -198,7 +198,7 @@ class SharifDailyBot:
             reply_markup=self.markup,
         )
 
-        event_data.clear()
+        if context.user_data: context.user_data.clear()
         return ConversationHandler.END
 
 
