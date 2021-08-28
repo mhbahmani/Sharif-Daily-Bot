@@ -143,7 +143,7 @@ class SharifDailyBot:
 
     def done(self, update: Update, context: CallbackContext) -> int:
         """
-        Display the gathered info and end.
+        Save and display the gathered info and end.
         """
 
         event_data = context.user_data
@@ -184,6 +184,19 @@ class SharifDailyBot:
                     utils.reformat_username(update.effective_user.username),
                     utils.event_data_to_str(event_data))
             )
+
+        event_data.clear()
+        return ConversationHandler.END
+
+    def cancel(self, update: Update, context: CallbackContext) -> int:
+        """
+        End the conversation
+        """
+        
+        update.message.reply_text(
+            text=messages.cancel_message,
+            reply_markup=self.markup,
+        )
 
         event_data.clear()
         return ConversationHandler.END
@@ -306,7 +319,7 @@ class SharifDailyBot:
                     )
                 ],
             },
-            fallbacks=[MessageHandler(Filters.regex('^Done$'), self.done)],
+            fallbacks=[MessageHandler(Filters.regex('^Done$'), self.done), MessageHandler(Filters.regex('^Cancel$'), self.cancel)],
         )   
         self.dispatcher.add_handler(add_handler)
 
