@@ -135,5 +135,7 @@ future_suggestion_message_header = '☀️برنامه‌های پیشنهادی
 
 you_are_not_admin_message = 'You don\'t have the right access'
 
+cancel_message = "دریافت اطلاعت برنامه متوقف شد. با دستور /add می‌توانید رویداد جدیدی اضافه کنید."
+
 TIME_PICKER_CALLBACK = 'TIME'
 CALENDAR_CALLBACK = 'CALENDAR'
