@@ -304,17 +304,19 @@ class SharifDailyBot:
             states={
                 CHOOSING: [
                     MessageHandler(
-                        Filters.regex('^(Title|Date|Time|Location|Link|Telegram Channel|Invited)$'), self.regular_choice
+                        Filters.regex('^(Title|Date|Time|Location|Link|Telegram Channel|Invited)$'),
+                        self.regular_choice
                     )
                 ],
                 TYPING_CHOICE: [
                     MessageHandler(
-                        Filters.text & ~(Filters.command | Filters.regex('^Done$')), self.regular_choice
+                        Filters.text & ~(Filters.command | Filters.regex('^Done$') | Filters.regex('^Cancel$')),
+                        self.regular_choice
                     )
                 ],
                 TYPING_REPLY: [
                     MessageHandler(
-                        Filters.text & ~(Filters.command | Filters.regex('^Done$')),
+                        Filters.text & ~(Filters.command | Filters.regex('^Done$') | Filters.regex('^Cancel$')),
                         self.received_information,
                     )
                 ],
