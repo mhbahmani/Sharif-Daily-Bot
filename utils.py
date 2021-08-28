@@ -6,6 +6,7 @@ from messages import (
     future_suggestion_message_header,
     no_event_registered_message,
     suggestion_message_header,
+    splitter_character,
     events_message,
     choices_to_fa,
     event_emojis,
@@ -53,8 +54,14 @@ def create_events_message(events):
         events_info = []
         for key in info:
             if not event.get(key): continue
-            data = event[key].split('\n')
-            for d in data: events_info.append(f'{event_emojis[key]}{d}')
+            event_data = event[key].split('\n')
+            events_info.append(
+                f'{event_emojis[key]}{splitter_character[key].join(
+                    list(
+                        filter(lambda x: x != '', event_data)
+                    )
+                )}'
+            )
         all_events.append('\n'.join(
             list(filter(lambda x: x != '', events_info))
             ))
