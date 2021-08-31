@@ -231,10 +231,10 @@ class SharifDailyBot:
         if category.startswith('admin'):
             if category == 'admin_Date':
                 date = event_data['admin_Date']
-                self.send_msg_to_admins(
-                    context,
-                    utils.create_events_message_by_date(self.db, date)
-                    )
+                update.callback_query.message.reply_text(
+                    text=utils.create_events_message_by_date(self.db, date),
+                    reply_markup=self.markup,
+                )
             event_data.clear()
         else:
             update.callback_query.message.reply_text(
