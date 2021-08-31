@@ -130,7 +130,7 @@ events_message = """
 splitter_character = {
     'Title': f"\n{event_emojis['Title']}",
     'Time': f"\n{event_emojis['Time']}",
-    'Invited': "،",
+    'Invited': "، ",
     'Link': f"\n{event_emojis['Link']}",
     'Location': f"\n{event_emojis['Location']}",
     'Telegram Channel': " "
