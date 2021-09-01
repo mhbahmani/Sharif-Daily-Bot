@@ -106,7 +106,7 @@ days = [
     'شنبه', 'یک‌‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'
 ]
 
-info = ['Title', 'Time', 'Invited', 'Link', 'Location', 'Telegram Channel', 'Calendar']
+info = ['Title', 'Time', 'Invited', 'Link', 'Location', 'Calendar', 'Telegram Channel']
 
 fill_mandatory_fields_message = """
 برخی از مشخصات برنامه ضروری هستند. از اطلاعات ضروری، موارد زیر را تکمیل نکرده‌اید:
