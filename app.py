@@ -233,6 +233,7 @@ class SharifDailyBot:
                 date = event_data['admin_Date']
                 update.callback_query.message.reply_text(
                     text=utils.create_events_message_by_date(self.db, date),
+                    parse_mode='html',
                     reply_markup=self.markup,
                 )
             event_data.clear()
@@ -280,7 +281,6 @@ class SharifDailyBot:
         context.user_data['choice'] = choice
         update.message.reply_text(
             text=messages.choices_message[choice],
-            parse_mode='html',
             reply_markup=tcalendar.create_calendar()
         )
 
