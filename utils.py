@@ -50,28 +50,33 @@ def seprate_admins(admins: str) -> list:
     return [int(admin_id) for admin_id in admins.split('\\n')]
 
 
+def event_info_to_str(key, data: str) -> str:
+    """
+        Turns event data to desired format 
+    """
+
+    event_data =  list(
+        filter(lambda x: x != '', data.split('\n'))
+    )
+    if key == 'Calendar':
+        return f'{event_emojis[key]}{calendar_link.format(data, add_to_calendar_text)}'
+    return f'{event_emojis[key]}{splitter_character[key].join(event_data)}'
+
+
 def create_events_message(events):
     all_events = []
     for event in events:
         events_info = []
         for key in info:
-            if not event.get(key) or key == 'Calendar': continue
-            event_data = event[key].split('\n')
+            if not event.get(key): continue
             events_info.append(
-                f"""{event_emojis[key]}{splitter_character[key].join(
-                    list(
-                        filter(lambda x: x != '', event_data)
-                    )
-                )}"""
+                event_info_to_str(key, event.get(key))
             )
-
-        if event.get('Calendar'):
-            events_info.append(calendar_link.format(event.get('Calendar'), add_to_calendar_text))
-
 
         all_events.append('\n'.join(
             list(filter(lambda x: x != '', events_info))
-            ))
+            )
+        )
         
 
     return '\n\n'.join(all_events)
