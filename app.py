@@ -306,7 +306,7 @@ class SharifDailyBot:
             states={
                 CHOOSING: [
                     MessageHandler(
-                        Filters.regex('^(Title|Date|Time|Location|Link|Telegram Channel|Invited)$'),
+                        Filters.regex('^(Title|Date|Time|Location|Link|Telegram Channel|Invited|Calendar)$'),
                         self.regular_choice
                     )
                 ],
