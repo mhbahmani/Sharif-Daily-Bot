@@ -85,7 +85,7 @@ event_emojis = {
     'Location': '🏢',
     'Link': '🖥',
     'Telegram Channel': '🆔',
-    'Calendar': 📆
+    'Calendar': '📆',
 }
 
 
