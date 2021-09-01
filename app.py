@@ -269,6 +269,7 @@ class SharifDailyBot:
         events_message = utils.create_tomorrow_events_message(self.db)
         context.bot.send_message(
             chat_id=update.effective_chat.id,
+            parse_mode='html',
             text=events_message
         )
 
@@ -279,6 +280,7 @@ class SharifDailyBot:
         context.user_data['choice'] = choice
         update.message.reply_text(
             text=messages.choices_message[choice],
+            parse_mode='html',
             reply_markup=tcalendar.create_calendar()
         )
 
