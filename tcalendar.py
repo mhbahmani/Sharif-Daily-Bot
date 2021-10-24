@@ -10,7 +10,7 @@ def create_callback_data(action, year=0, month=0, day=0):
 
 
 def create_calendar(year=None, month=None, remove_passed_days=True):
-    now = datetime.datetime.now()
+    now = datetime.datetime.today()
     if not year: year = now.year
     if not month: month = now.month
 
