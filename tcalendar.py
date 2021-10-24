@@ -9,7 +9,7 @@ def create_callback_data(action, year=0, month=0, day=0):
     return CALENDAR_CALLBACK + ";" + ";".join([action, str(year), str(month), str(day)])
 
 
-def create_calendar(year=None, month=None):
+def create_calendar(year=None, month=None, remove_passed_days=True):
     now = datetime.datetime.now()
     if not year: year = now.year
     if not month: month = now.month
@@ -33,7 +33,7 @@ def create_calendar(year=None, month=None):
         row.append(InlineKeyboardButton(day,callback_data=create_callback_data("IGNORE")))
     keyboard.append(row)
 
-    month_weeks = monthcalendar(year, month)
+    month_weeks = monthcalendar(year, month, remove_passed_days=remove_passed_days)
     for week in month_weeks:
         row = []
         for day in week:
@@ -103,12 +103,12 @@ def process_calendar_selection(bot, update):
     return out
 
 
-def monthcalendar(year=datetime.datetime.today().year, month=datetime.datetime.today().month):
+def monthcalendar(year=datetime.datetime.today().year, month=datetime.datetime.today().month, remove_passed_days=True):
     start_day_week_day = datetime.date(year, month, 1).weekday()
     weeks = []
     weeks.append([0] * start_day_week_day + list(range(1, 8 - start_day_week_day)))
     days_left = (
-        datetime.date(year, month, 1) - datetime.timedelta(days=1)
+        datetime.date(year, month + 1, 1) - datetime.timedelta(days=1)
         ).day - weeks[0][-1]
     for i in range(days_left // 7):
         weeks.append(list(range(weeks[i][-1] + 1, weeks[i][-1] + 8)))
@@ -116,7 +116,8 @@ def monthcalendar(year=datetime.datetime.today().year, month=datetime.datetime.t
         weeks.append(list(range(weeks[-1][-1] + 1, weeks[-1][-1] + 1 + (days_left % 7))) + [0] * (7 - days_left % 7))
     
     # remove days before today
-    if datetime.date.today().month == month and \
+    if remove_passed_days and \
+        datetime.date.today().month == month and \
         datetime.date.today().year == year:     
         today = datetime.date.today().day   
         for week in weeks:

@@ -281,7 +281,7 @@ class SharifDailyBot:
         context.user_data['choice'] = choice
         update.message.reply_text(
             text=messages.choices_message[choice],
-            reply_markup=tcalendar.create_calendar()
+            reply_markup=tcalendar.create_calendar(remove_passed_days=False)
         )
 
 
