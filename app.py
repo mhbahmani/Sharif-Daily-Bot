@@ -270,14 +270,16 @@ class SharifDailyBot:
         
         text = update.message.text
         event_data = text.split("\n")
-        event_data.reverse()
-        event_data = event_data[1:]
+        if context.user_data: context.user_data.clear()
 
-        for i, value in enumerate(event_data):
+        i = -1
+        for value in event_data:
+            i += 1
+            if value == "": continue
             context.user_data[messages.info[i]] = value
 
         update.message.reply_text(
-            text=messages.received_info_message.format(utils.event_data_to_str(context.user_data)),
+            text=utils.event_data_to_str(context.user_data),
         )
 
 
@@ -361,11 +363,12 @@ class SharifDailyBot:
             states={
                 WATING: [
                     MessageHandler(
-                        Filters.text, self.event_all_details
+                        Filters.text & ~(Filters.command | Filters.regex('^done$')),
+                        self.event_all_details
                     )
                 ]
             },
-            fallbacks=[]
+            fallbacks=[MessageHandler(Filters.regex('^done$'), self.done)]
         )
         self.dispatcher.add_handler(add_in_one_handler)
 
