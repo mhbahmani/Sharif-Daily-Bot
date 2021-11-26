@@ -20,6 +20,7 @@ import time_picker
 
 # Stages:
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
+WATING = 0
 
 
 class SharifDailyBot:
@@ -265,6 +266,28 @@ class SharifDailyBot:
         )
 
 
+    def event_all_details(self, update: Update, context: CallbackContext) -> int:
+        
+        text = update.message.text
+
+        update.message.reply_text(
+            text=text
+        )
+
+
+    @check_admin
+    def add_in_one(self, update, context):
+        """
+        Add a new program with one message
+        """
+
+        update.message.reply_text(
+            text=messages.all_in_one_message
+        )
+
+        return WATING
+
+
     @check_admin
     def get_tomorrow_events(self, update, context):
         events_message = utils.create_tomorrow_events_message(self.db)
@@ -326,6 +349,17 @@ class SharifDailyBot:
             fallbacks=[MessageHandler(Filters.regex('^Done$'), self.done), MessageHandler(Filters.regex('^Cancel$'), self.cancel)],
         )   
         self.dispatcher.add_handler(add_handler)
+
+        add_in_one_handler = ConversationHandler(
+            entry_points=[CommandHandler('addall', self.add_in_one)],
+            states={
+                WATING: [
+                    MessageHandler(
+                        Filters.text, self.event_all_details
+                    )
+                ]
+            }
+        )
 
 
     def run(self):
