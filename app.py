@@ -269,9 +269,15 @@ class SharifDailyBot:
     def event_all_details(self, update: Update, context: CallbackContext) -> int:
         
         text = update.message.text
+        event_data = text.split("\n")
+        event_data.reverse()
+        event_data = event_data[1:]
+
+        for i, value in enumerate(event_data):
+            context.user_data[messages.info[i]] = value
 
         update.message.reply_text(
-            text=text
+            text=messages.received_info_message.format(utils.event_data_to_str(context.user_data)),
         )
 
 
@@ -358,8 +364,10 @@ class SharifDailyBot:
                         Filters.text, self.event_all_details
                     )
                 ]
-            }
+            },
+            fallbacks=[]
         )
+        self.dispatcher.add_handler(add_in_one_handler)
 
 
     def run(self):
